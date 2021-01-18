@@ -59,6 +59,7 @@ class BOMWeatherCard extends LitElement {
               ${this.getSlot().l3}
               ${this.getSlot().l4}
               ${this.getSlot().l5}
+              ${this.getSlot().l6}
             </li>
             <li>
               ${this.getSlot().r1}
@@ -66,6 +67,7 @@ class BOMWeatherCard extends LitElement {
               ${this.getSlot().r3}
               ${this.getSlot().r4}
               ${this.getSlot().r5}
+              ${this.getSlot().r6}
             </li>
           </ul>
         </span>
@@ -102,11 +104,13 @@ class BOMWeatherCard extends LitElement {
       'r3' : this.slotValue('r3',this.config.slot_r3),
       'r4' : this.slotValue('r4',this.config.slot_r4),
       'r5' : this.slotValue('r5',this.config.slot_r5),
+      'r6' : this.slotValue('r6',this.config.slot_r6),
       'l1' : this.slotValue('l1',this.config.slot_l1),
       'l2' : this.slotValue('l2',this.config.slot_l2),
       'l3' : this.slotValue('l3',this.config.slot_l3),
       'l4' : this.slotValue('l4',this.config.slot_l4),
       'l5' : this.slotValue('l5',this.config.slot_l5),
+      'l6' : this.slotValue('l6',this.config.slot_l6),
     }
   }
 
@@ -135,7 +139,9 @@ class BOMWeatherCard extends LitElement {
     var pressure = this.config.alt_pressure ? html`<li><span class="ha-icon"><ha-icon icon="mdi:gauge"></ha-icon></span><span id="alt-pressure">${this._hass.states[this.config.alt_pressure].state}</span></li>` : this.config.entity_pressure ? html`<li><span class="ha-icon"><ha-icon icon="mdi:gauge"></ha-icon></span><span id="pressure-text">${this.current.pressure}</span><span class="unit"> ${this.getUOM('air_pressure')}</span></li>` : ``;
     var uv_summary = this.config.entity_uv_alert_summary ? html`<li><span class="ha-icon"><ha-icon icon="mdi:weather-sunny"></ha-icon></span>${this.localeText.uvRating} <span id="daytime-uv-text">${this._hass.states[this.config.entity_uv_alert_summary].state}</span></li>` : ``;
     var fire_summary = this.config.entity_fire_danger_summary ? html`<li><span class="ha-icon"><ha-icon icon="mdi:fire"></ha-icon></span>${this.localeText.fireDanger} <span id="daytime-firedanger-text">${this._hass.states[this.config.entity_fire_danger_summary].state}</span></li>` : ``;
-
+    var precipIntensityCurrent = this.config.entity_precip_intensity_current ? html`<li><span class="ha-icon"><ha-icon icon="mdi:weather-pouring"></ha-icon></span><span id="intensity_current-text">${this._hass.states[this.config.entity_precip_intensity_current].state}</span><span class="unit"> ${this.getUOM('intensity')}</span>` : ``;
+    var precipCurrent = this.config.entity_precip_current ? html`<li><span class="ha-icon"><ha-icon icon="mdi:weather-rainy"></ha-icon></span><span id="precip_current-text">${this._hass.states[this.config.entity_precip_current].state}</span><span class="unit"> ${this.getUOM('precipitation')}</span>` : ``;
+    
     switch (value){
       case 'pop': return pop;
 	  case 'popforecast': return popforecast;
@@ -152,6 +158,8 @@ class BOMWeatherCard extends LitElement {
       case 'wind_kt': return wind_kt;
       case 'visibility': return visibility;
       case 'sun_next': return sunNext;
+      case 'precip_rate_current': return precipIntensityCurrent;
+      case 'precip_current': return precipCurrent;
       case 'empty': return html`&nbsp;`;
       case 'remove': return ``;
     }
@@ -163,11 +171,13 @@ class BOMWeatherCard extends LitElement {
       case 'l3': return wind;
       case 'l4': return pressure;
       case 'l5': return sunNext;
+      case 'l6': return remove;
       case 'r1': return pop;
       case 'r2': return humidity;
       case 'r3': return uv_summary;
       case 'r4': return fire_summary;
       case 'r5': return sunFollowing;
+      case 'r5': return remove;
     }
   }
 
