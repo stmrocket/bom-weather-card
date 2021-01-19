@@ -171,13 +171,13 @@ class BOMWeatherCard extends LitElement {
       case 'l3': return wind;
       case 'l4': return pressure;
       case 'l5': return sunNext;
-      case 'l6': return remove;
+      case 'l6': return precipCurrent;
       case 'r1': return pop;
       case 'r2': return humidity;
       case 'r3': return uv_summary;
       case 'r4': return fire_summary;
       case 'r5': return sunFollowing;
-      case 'r5': return remove;
+      case 'r5': return precipIntensityCurrent;
     }
   }
 
@@ -960,6 +960,8 @@ style() {
       if (this.config.show_beaufort  && !this.config.alt_wind) try { root.getElementById("beaufort-text-kt").textContent =  `Bft: ${this.beaufortWindKt} - ` } catch(e) {}
       if (this.config.entity_possible_today) try { root.getElementById("possible_today-text").textContent = `${this._hass.states[this.config.entity_possible_today].state}` } catch(e) {}
       if (this.config.entity_pos_1) try { root.getElementById("possible_tomorrow-text").textContent = `${this._hass.states[this.config.entity_pos_1].state}` } catch(e) {}
+      if (this.config.entity_precip_intensity_current) { root.getElementById("intensity_current-text").textContent = `${this._hass.states[this.config.entity_precip_intensity_current].state}` }
+      if (this.config.entity_precip_current) { root.getElementById("precip_current-text").textContent = `${this._hass.states[this.config.entity_precip_current].state} ` }
 
 // Alt Text
       if (this.config.alt_sun_next) try { root.getElementById("alt-sun-next").textContent = `${this._hass.states[this.config.alt_sun_next].state}` } catch(e) {}
