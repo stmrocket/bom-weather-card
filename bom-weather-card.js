@@ -177,7 +177,7 @@ class BOMWeatherCard extends LitElement {
       case 'r3': return uv_summary;
       case 'r4': return fire_summary;
       case 'r5': return sunFollowing;
-      case 'r5': return precipIntensityCurrent;
+      case 'r6': return precipIntensityCurrent;
     }
   }
 
